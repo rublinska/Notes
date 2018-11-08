@@ -139,7 +139,7 @@ namespace Notes.ViewModels.Authentication
                 }
                 try
                 {
-                    var user = new User(_firstName, _lastName, _email, _login, _password);
+                    var user = new User(_login, _firstName, _lastName, _email, _password);
                     DBManager.AddUser(user);
                     StationManager.CurrentUser = user;
                 }

@@ -116,8 +116,9 @@ namespace Notes.Models
             _lastName = LastName;
             _login = Login;
             _lastLoginDateTime = DateTime.Now;
+            SetPassword(password);
 
-            // SetPassword(password);
+
         }
 
         private User()
@@ -127,6 +128,10 @@ namespace Notes.Models
 
         #endregion
 
+        private void SetPassword(string password)
+        {
+            _password = Encrypting.GetMd5HashForString(password);
+        }
         public bool CheckPassword(string password)
         {
             try
@@ -140,7 +145,6 @@ namespace Notes.Models
                 return false;
             }
         }
-
         public bool CheckPassword(User userCandidate)
         {
             try
