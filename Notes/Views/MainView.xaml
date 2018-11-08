@@ -15,7 +15,7 @@
             <RowDefinition Height="20"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Content="Add Wallet" Command="{Binding AddNoteCommand}" Grid.Row="0"/>
+        <Button Content="Add Note" Command="{Binding AddNoteCommand}" Grid.Row="0"/>
         <ListBox Grid.Row="1"  ItemsSource="{Binding Notes}" SelectedItem="{Binding SelectedNote}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="Auto" Margin="2">
             <ListBox.ItemTemplate>
                 <DataTemplate>

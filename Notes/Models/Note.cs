@@ -29,7 +29,7 @@ namespace Notes.Models
             get { return _title; }
             set { _title = value; }
         }
-        public string Text
+        public string NoteText
         {
             get { return _text; }
             set { _text = value; }
@@ -37,10 +37,11 @@ namespace Notes.Models
         #endregion
 
         #region Constructor
-        public Note(string title, User user) : this()
+        public Note(string title, string text, User user) : this()
         {
             _guid = Guid.NewGuid();
             _title = title;
+            _text = text;
             user.Notes.Add(this);
         }
         private Note()

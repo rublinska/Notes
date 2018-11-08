@@ -15,15 +15,22 @@
 
             <RowDefinition Height="10"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <controls:LabelAndTextControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Caption="Title" Margin="5"
                                 Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-        <controls:LabelAndTextControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Caption="Text" Margin="5"
-                                Text="{Binding Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <controls:LabelAndTextControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Caption="Note" Margin="5"
+                                Text="{Binding NoteText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <Button Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Width="75"  Content="Save Note" Command="{Binding EditNoteCommand}"/>
+        <Button Grid.Row="2" Grid.Column="2" Content="Close" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="75" Command="{Binding CloseCommand}"/>
+        
+        <Button Grid.Row="2" Grid.Column="0" Content="Log Out" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Command="{Binding LogOutCommand}"/>
 
     </Grid>
 </UserControl>

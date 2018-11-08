@@ -15,6 +15,8 @@ namespace Notes.ViewModels
         private Note _selectedNote;
         private ObservableCollection<Note> _notes;
         #region Commands
+        private ICommand _closeCommand;
+        private ICommand _logOutCommand;
         private ICommand _addNoteCommand;
         private ICommand _editNoteCommand;
         private ICommand _deleteNoteCommand;
@@ -24,6 +26,21 @@ namespace Notes.ViewModels
         #region Properties
         #region Commands
 
+        public ICommand CloseCommand
+        {
+            get
+            {
+                return _closeCommand ?? (_closeCommand = new RelayCommand<object>(CloseExecute));
+            }
+        }
+        public ICommand LogOutCommand
+        {
+            get
+            {
+                return _logOutCommand ?? (_logOutCommand = new RelayCommand<object>(LogOutExecute));
+            }
+        }
+
         public ICommand AddNoteCommand
         {
             get
@@ -31,15 +48,15 @@ namespace Notes.ViewModels
                 return _addNoteCommand ?? (_addNoteCommand = new RelayCommand<object>(AddNoteExecute));
             }
         }
-        /*
+        
         public ICommand EditNoteCommand
         {
             get
             {
-                return _editNoteCommand ?? (_editNoteCommand = new RelayCommand<KeyEventArgs>(EditNoteExecute));
+                return _editNoteCommand ?? (_editNoteCommand = new RelayCommand<object>(EditNoteExecute));
             }
         }
-        */
+        
         public ICommand DeleteNoteCommand
         {
             get
@@ -102,12 +119,28 @@ namespace Notes.ViewModels
             OnPropertyChanged(nameof(SelectedNote));
             OnPropertyChanged(nameof(Notes));
         }
+        private void EditNoteExecute(object o)
+        {
+            if (SelectedNote == null) return;
+            
+            _notes.Clear();
+            FillNotes();
+        }
 
         private void AddNoteExecute(object o)
         {
-            Note note = new Note("New Note", StationManager.CurrentUser);
+            Note note = new Note("New Note", "", StationManager.CurrentUser);
             _notes.Add(note);
-            _selectedNote = note;
+            _selectedNote = note ;
+        }
+        private void LogOutExecute(object o)
+        {
+            NavigationManager.Instance.Navigate(ModesEnum.SignIn);
+        }
+
+        private void CloseExecute(object o)
+        {
+            StationManager.CloseApp();
         }
 
         #region EventsAndHandlers

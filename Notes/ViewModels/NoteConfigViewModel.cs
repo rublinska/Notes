@@ -24,12 +24,12 @@ namespace Notes.ViewModels
                 OnPropertyChanged();
             }
         }
-        public string Text
+        public string NoteText
         {
-            get { return _currentNote.Text; }
+            get { return _currentNote.NoteText; }
             set
             {
-                _currentNote.Text = value;
+                _currentNote.NoteText = value;
                 OnPropertyChanged();
             }
         }
