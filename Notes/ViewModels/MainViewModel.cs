@@ -15,7 +15,6 @@ namespace Notes.ViewModels
         private Note _selectedNote;
         private ObservableCollection<Note> _notes;
         #region Commands
-        private ICommand _closeCommand;
         private ICommand _logOutCommand;
         private ICommand _addNoteCommand;
         private ICommand _editNoteCommand;
@@ -25,14 +24,7 @@ namespace Notes.ViewModels
 
         #region Properties
         #region Commands
-
-        public ICommand CloseCommand
-        {
-            get
-            {
-                return _closeCommand ?? (_closeCommand = new RelayCommand<object>(CloseExecute));
-            }
-        }
+        
         public ICommand LogOutCommand
         {
             get
@@ -137,12 +129,7 @@ namespace Notes.ViewModels
         {
             NavigationManager.Instance.Navigate(ModesEnum.SignIn);
         }
-
-        private void CloseExecute(object o)
-        {
-            StationManager.CloseApp();
-        }
-
+        
         #region EventsAndHandlers
         #region Loader
         internal event NoteChangedHandler NoteChanged;

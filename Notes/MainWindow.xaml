@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
-        Title="Notes App" MinHeight="500" MinWidth="700">
+        Title="Notes App" MinHeight="200" MinWidth="500">
     <Grid>
         <ContentControl Name="_contentControl" IsEnabled="{Binding Path=IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>

@@ -5,17 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:Notes.Tools.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="900" d:DesignWidth="100">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="78"></RowDefinition>
 
-            <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="69"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -23,14 +21,11 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <controls:LabelAndTextControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Caption="Title" Margin="5"
+        <controls:LabelAndTextControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Caption="Title" Margin="5,5,39,5"
                                 Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-        <controls:LabelAndTextControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Caption="Note" Margin="5"
-                                Text="{Binding NoteText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-        <Button Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Width="75"  Content="Save Note" Command="{Binding EditNoteCommand}"/>
-        <Button Grid.Row="2" Grid.Column="2" Content="Close" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="75" Command="{Binding CloseCommand}"/>
-        
-        <Button Grid.Row="2" Grid.Column="0" Content="Log Out" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Command="{Binding LogOutCommand}"/>
+        <controls:LabelAndTextControl Grid.Row="2" Grid.Column="0" Caption="Note" Margin="5,5,10,17"
+                                Text="{Binding NoteText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
+        <Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Width="75"  Content="Save Note" Command="{Binding EditNoteCommand}" Height="17" Margin="0,0,10,10"/>
 
     </Grid>
 </UserControl>

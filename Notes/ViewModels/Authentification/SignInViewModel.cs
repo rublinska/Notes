@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -75,6 +76,11 @@ namespace Notes.ViewModels.Authentication
         #region ConstructorAndInit
         internal SignInViewModel()
         {
+            /*
+            User user = (User)SerializationManager.Deserialize<User>(FileFolderHelper.LastUserFilePath);
+            _login = user.Login;
+            _password = user.Password;
+            */
         }
         #endregion
 
@@ -122,6 +128,7 @@ namespace Notes.ViewModels.Authentication
                 return true;
             });
             LoaderManager.Instance.HideLoader();
+            SerializationManager.Serialize<User>(StationManager.CurrentUser, FileFolderHelper.LastUserFilePath);
             if (result)
                 NavigationManager.Instance.Navigate(ModesEnum.Main);
         }

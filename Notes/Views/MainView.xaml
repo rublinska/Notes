@@ -12,8 +12,9 @@
             <ColumnDefinition Width="70*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="80*"/>
+            <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
         <Button Content="Add Note" Command="{Binding AddNoteCommand}" Grid.Row="0"/>
         <ListBox Grid.Row="1"  ItemsSource="{Binding Notes}" SelectedItem="{Binding SelectedNote}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="Auto" Margin="2">
@@ -25,6 +26,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Button Grid.Row="2" Content="Log Out" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding LogOutCommand}" Margin="0,0,0,-39"/>
+        <Button Grid.Column="2" Grid.Row="2"  HorizontalAlignment="Right" VerticalAlignment="Bottom"  Width="75"  Content="Save Note" Command="{Binding EditNoteCommand}" Height="17" Margin="0,0,10,10"/>
 
     </Grid>
 </UserControl>
