@@ -8,36 +8,46 @@ namespace Notes.Managers
 {
     public static class StationManager
     {
-        public static User CurrentUser { get; set; }
 
-        static StationManager()
+        internal static User CurrentUser { get; set; }
+
+        // serialize and add user to appdata folder
+        // to automatic SignIn next time
+        internal static void AddCurrentUserToCache()
         {
-            DeserializeLastUser();
+            SerializationManager.Serialize<User>(CurrentUser, FileFolderHelper.LastUserFilePath);
+            Logger.Log($"\t{CurrentUser.ToString()} was added to auto sign in");
         }
 
-        private static void DeserializeLastUser()
+        // loading user from appdata folder
+        // and deserialize it
+        internal static void LoadCurrentUserFromCache()
         {
-            User userCandidate;
-            try
-            {
-                userCandidate = SerializationManager.Deserialize<User>(Path.Combine(FileFolderHelper.LastUserFilePath));
-            }
-            catch (Exception ex)
-            {
-                userCandidate = null;
-                Logger.Log("Failed to Deserialize last user", ex);
-            }
-            if (userCandidate == null)
-            {
-                Logger.Log("User was not deserialized");
-                return;
-            }
-            userCandidate = DBManager.CheckCachedUser(userCandidate);
-            if (userCandidate == null)
-                Logger.Log("Failed to relogin last user");
-            else
-                CurrentUser = userCandidate;
+            if (FileFolderHelper.FileExists(FileFolderHelper.LastUserFilePath)) { }
+            CurrentUser = SerializationManager.Deserialize<User>(FileFolderHelper.LastUserFilePath);
+            if (CurrentUser != null)
+                Logger.Log($"\t{CurrentUser.ToString()} succssesfuly auto sign in");
         }
+
+        // delete serialized user from appdata folder
+        // after SignOut
+        internal static void RemoveCurrentUserFromCache()
+        {
+            FileFolderHelper.CheckAndDeleteFile(FileFolderHelper.LastUserFilePath);
+            Logger.Log($"\t{CurrentUser.ToString()} was removed from auto sign in");
+            CurrentUser = null;
+        }
+
+        internal static void UpdateCurrentUserInCache()
+        {
+            FileFolderHelper.CheckAndDeleteFile(FileFolderHelper.LastUserFilePath);
+            if (FileFolderHelper.FileExists(FileFolderHelper.LastUserFilePath)) { }
+            CurrentUser = SerializationManager.Deserialize<User>(FileFolderHelper.LastUserFilePath);
+            if (CurrentUser != null)
+                Logger.Log($"\t{CurrentUser.ToString()} succssesfuly updated");
+
+        }
+
 
         internal static void CloseApp()
         {

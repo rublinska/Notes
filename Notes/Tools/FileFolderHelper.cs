@@ -43,5 +43,28 @@ namespace Notes.Tools
                 throw;
             }
         }
+
+        internal static bool FileExists(string path)
+        {
+            FileInfo file = new FileInfo(path);
+            return file.Exists;
+        }
+
+        internal static void CheckAndDeleteFile(string path)
+        {
+            try
+            {
+                FileInfo file = new FileInfo(path);
+                if (file.Exists)
+                {
+                    file.Delete();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"RemoveCurrentUser failure: {path}", ex);
+                throw;
+            }
+        }
     }
 }

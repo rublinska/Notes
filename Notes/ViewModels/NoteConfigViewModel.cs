@@ -35,8 +35,6 @@ namespace Notes.ViewModels
         }
         #endregion
 
-
-
         #region Constructor
         public NoteConfigViewModel(Note note)
         {

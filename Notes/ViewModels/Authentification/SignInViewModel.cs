@@ -125,10 +125,11 @@ namespace Notes.ViewModels.Authentication
                     return false;
                 }
                 StationManager.CurrentUser = currentUser;
+                StationManager.AddCurrentUserToCache();
+
                 return true;
             });
             LoaderManager.Instance.HideLoader();
-            SerializationManager.Serialize<User>(StationManager.CurrentUser, FileFolderHelper.LastUserFilePath);
             if (result)
                 NavigationManager.Instance.Navigate(ModesEnum.Main);
         }

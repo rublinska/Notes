@@ -1,11 +1,11 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
-using Notes.Managers;
+﻿using Notes.Managers;
 using Notes.Models;
 using Notes.Properties;
 using Notes.Tools;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace Notes.ViewModels
 {
@@ -45,7 +45,7 @@ namespace Notes.ViewModels
         {
             get
             {
-                return _editNoteCommand ?? (_editNoteCommand = new RelayCommand<object>(EditNoteExecute));
+                return _editNoteCommand ?? (_editNoteCommand = new RelayCommand<KeyEventArgs>(EditNoteExecute));
             }
         }
         
@@ -111,10 +111,12 @@ namespace Notes.ViewModels
             OnPropertyChanged(nameof(SelectedNote));
             OnPropertyChanged(nameof(Notes));
         }
-        private void EditNoteExecute(object o)
+        private void EditNoteExecute(KeyEventArgs args)
         {
             if (SelectedNote == null) return;
-            
+            DBManager.UpdateUser(StationManager.CurrentUser);
+            StationManager.UpdateCurrentUserInCache();
+
             _notes.Clear();
             FillNotes();
         }
@@ -124,12 +126,17 @@ namespace Notes.ViewModels
             Note note = new Note("New Note", "", StationManager.CurrentUser);
             _notes.Add(note);
             _selectedNote = note ;
+            DBManager.UpdateUser(StationManager.CurrentUser);
+            StationManager.UpdateCurrentUserInCache();
         }
         private void LogOutExecute(object o)
         {
+
             NavigationManager.Instance.Navigate(ModesEnum.SignIn);
+            Logger.Log($"\t{StationManager.CurrentUser.ToString()} succsesfuly sign out and navigated to sign in window");
+            StationManager.RemoveCurrentUserFromCache();
         }
-        
+
         #region EventsAndHandlers
         #region Loader
         internal event NoteChangedHandler NoteChanged;
