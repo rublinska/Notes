@@ -1,4 +1,5 @@
-﻿using Notes.Managers;
+﻿using Notes.DBModels;
+using Notes.Managers;
 using Notes.Models;
 using Notes.Properties;
 using Notes.Tools;
@@ -12,8 +13,8 @@ namespace Notes.ViewModels
     class MainViewViewModel : INotifyPropertyChanged
     {
         #region Fields
-        private Note _selectedNote;
-        private ObservableCollection<Note> _notes;
+        private NoteUIModel _selectedNote;
+        private ObservableCollection<NoteUIModel> _notes;
         #region Commands
         private ICommand _logOutCommand;
         private ICommand _addNoteCommand;
@@ -58,11 +59,11 @@ namespace Notes.ViewModels
         }
         #endregion
 
-        public ObservableCollection<Note> Notes
+        public ObservableCollection<NoteUIModel> Notes
         {
             get { return _notes; }
         }
-        public Note SelectedNote
+        public NoteUIModel SelectedNote
         {
             get { return _selectedNote; }
             set
@@ -88,10 +89,10 @@ namespace Notes.ViewModels
         }
         private void FillNotes()
         {
-            _notes = new ObservableCollection<Note>();
-            foreach (var Note in StationManager.CurrentUser.Notes)
+            _notes = new ObservableCollection<NoteUIModel>();
+            foreach (var note in StationManager.CurrentUser.Notes)
             {
-                _notes.Add(Note);
+                _notes.Add(new NoteUIModel(note));
             }
             if (_notes.Count > 0)
             {
@@ -104,45 +105,38 @@ namespace Notes.ViewModels
             if (args.Key != Key.Delete) return;
 
             if (SelectedNote == null) return;
-
             StationManager.CurrentUser.Notes.RemoveAll(uwr => uwr.Guid == SelectedNote.Guid);
-            DBManager.UpdateUser(StationManager.CurrentUser);
+            DBManager.DeleteNote(SelectedNote.Note);
             FillNotes();
             OnPropertyChanged(nameof(SelectedNote));
             OnPropertyChanged(nameof(Notes));
         }
         private void EditNoteExecute(KeyEventArgs args)
         {
-            if (SelectedNote == null) return;
-            DBManager.UpdateUser(StationManager.CurrentUser);
-            StationManager.UpdateCurrentUserInCache();
-
-            _notes.Clear();
-            FillNotes();
         }
 
         private void AddNoteExecute(object o)
         {
             Note note = new Note("New Note", "", StationManager.CurrentUser);
-            _notes.Add(note);
-            _selectedNote = note ;
-            DBManager.UpdateUser(StationManager.CurrentUser);
-            StationManager.UpdateCurrentUserInCache();
+            DBManager.AddNote(note);
+            var noteUIModel = new NoteUIModel(note);
+            _notes.Add(noteUIModel);
+            _selectedNote = noteUIModel;
         }
         private void LogOutExecute(object o)
         {
 
-            NavigationManager.Instance.Navigate(ModesEnum.SignIn);
             Logger.Log($"\t{StationManager.CurrentUser.ToString()} succsesfuly sign out and navigated to sign in window");
-            StationManager.RemoveCurrentUserFromCache();
+            NavigationManager.Instance.Navigate(ModesEnum.SignIn);
+            StationManager.CurrentUser = null;
         }
 
         #region EventsAndHandlers
         #region Loader
         internal event NoteChangedHandler NoteChanged;
-        internal delegate void NoteChangedHandler(Note note);
+        internal delegate void NoteChangedHandler(NoteUIModel note);
 
-        internal virtual void OnNoteChanged(Note note) => NoteChanged?.Invoke(note);
+        internal virtual void OnNoteChanged(NoteUIModel note) => NoteChanged?.Invoke(note);
         #endregion
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

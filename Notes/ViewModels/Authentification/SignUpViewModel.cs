@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Notes.Managers;
-using Notes.Models;
+using Notes.DBModels;
 using Notes.Properties;
 using Notes.Tools;
 

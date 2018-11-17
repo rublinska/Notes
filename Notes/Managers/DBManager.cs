@@ -1,51 +1,44 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Notes.Models;
-using Notes.Tools;
+﻿
+using Notes.DBModels;
+using Notes.DBAdapter;
 
 namespace Notes.Managers
 {
     internal class DBManager
     {
-        private static readonly List<User> Users;
-
-        static DBManager()
-        {
-            Users = SerializationManager.Deserialize<List<User>>(FileFolderHelper.StorageFilePath) ?? new List<User>();
-        }
 
         internal static bool UserExists(string login)
         {
-            return Users.Any(u => u.Login == login);
+            return EntityWrapper.UserExists(login);
         }
 
         internal static User GetUserByLogin(string login)
         {
-            return Users.FirstOrDefault(u => u.Login == login);
+            return EntityWrapper.GetUserByLogin(login);
         }
 
         internal static void AddUser(User user)
         {
-            Users.Add(user);
-            SaveChanges();
+            EntityWrapper.AddUser(user);
         }
 
-        private static void SaveChanges()
-        {
-            SerializationManager.Serialize(Users, FileFolderHelper.StorageFilePath);
-        }
 
         internal static User CheckCachedUser(User userCandidate)
         {
-            var userInStorage = Users.FirstOrDefault(u => u.Guid == userCandidate.Guid);
+            var userInStorage = EntityWrapper.GetUserByGuid(userCandidate.Guid);
             if (userInStorage != null && userInStorage.CheckPassword(userCandidate))
                 return userInStorage;
             return null;
         }
 
-        public static void UpdateUser(User currentUser)
+        public static void DeleteNote(Note selectedNote)
         {
-            SaveChanges();
+            EntityWrapper.DeleteNote(selectedNote);
+        }
+
+        public static void AddNote(Note Note)
+        {
+            EntityWrapper.AddNote(Note);
         }
     }
 }

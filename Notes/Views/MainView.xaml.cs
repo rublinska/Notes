@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using Notes.ViewModels;
+using Notes.Models;
 using Notes.Views.Note;
 
 namespace Notes.Views
@@ -27,7 +28,7 @@ namespace Notes.Views
             DataContext = _mainWindowViewModel;
         }
         
-        private void OnNoteChanged(Models.Note note)
+        private void OnNoteChanged(NoteUIModel note)
         {
             if (_currentNoteConfigView == null)
             {

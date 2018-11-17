@@ -16,7 +16,6 @@ namespace Notes
             var navigationModel = new NavigationModel(this);
             NavigationManager.Instance.Initialize(navigationModel);
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
-            StationManager.LoadCurrentUserFromCache();
 
             DataContext = mainWindowViewModel;
             mainWindowViewModel.StartApplication();

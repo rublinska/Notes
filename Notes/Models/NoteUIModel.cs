@@ -1,46 +1,59 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Notes.Managers;
-using Notes.Models;
+using Notes.DBModels;
 using Notes.Properties;
 
-namespace Notes.ViewModels
+namespace Notes.Models
 {
-    internal class 
-        NoteConfigViewModel : INotifyPropertyChanged
+    public class NoteUIModel : INotifyPropertyChanged
     {
         #region Fields
-        private readonly NoteUIModel _currentNote;
+        private Note _note;
         #endregion
 
         #region Properties
+        internal Note Note
+        {
+            get { return _note; }
+            private set
+            {
+                _note = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string Title
         {
-            get { return _currentNote.Title; }
+            get { return _note.Title; }
             set
             {
-                _currentNote.Title = value;
+                _note.Title = value;
                 OnPropertyChanged();
             }
         }
+
         public string NoteText
         {
-            get { return _currentNote.NoteText; }
+            get { return _note.NoteText; }
             set
             {
-                _currentNote.NoteText = value;
+                _note.NoteText = value;
                 OnPropertyChanged();
             }
         }
+        public Guid Guid
+        {
+            get { return _note.Guid; }
+        }
+
         #endregion
 
-        #region Constructor
-        public NoteConfigViewModel(NoteUIModel note)
+        public NoteUIModel(Note note)
         {
-            _currentNote = note;
+            _note = note;
         }
-        #endregion
+
         #region EventsAndHandlers
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -51,7 +64,5 @@ namespace Notes.ViewModels
         }
         #endregion
         #endregion
-
-
     }
 }

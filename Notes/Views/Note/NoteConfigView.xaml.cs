@@ -1,10 +1,11 @@
 ﻿using Notes.ViewModels;
+using Notes.Models;
 
 namespace Notes.Views.Note
 {
     public partial class NoteConfigView
     {
-        public NoteConfigView(Models.Note notes)
+        public NoteConfigView(NoteUIModel notes)
         {
             InitializeComponent();
             var notesModel = new NoteConfigViewModel(notes);

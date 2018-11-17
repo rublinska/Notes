@@ -1,23 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Notes.Tools;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Cryptography;
+using System.Data.Entity.ModelConfiguration;
 
-namespace Notes.Models
+namespace Notes.DBModels
 {
 
     [Serializable]
     public class User
     {
-
-
-        #region Const
-        private const string PrivateKey = "<RSAKeyValue><Modulus>sr4l8EwMgPqPhRTK+dPTwGs9uYhDeUohSRL48ZDf85/5/Lo469WltKFaQvA2Msy92xq14YPPN6p6mQD7stVbinRd+hihnYoqfclYRMe+FG6jqu/QACl0N6JgwM7iKGiyzBjL1vkvcSoaqwbxD8QPHgrdNlkyP0z6Vz7j79PFEos=</Modulus><Exponent>AQAB</Exponent><P>6OkjEhjlvbDCuOl8e0Ep2zACTxkfSta8WFBmdvrinhQSowkT5xDXL0EFa/Z03XNUmjJ0xGe1aNCgG+6dDpTnSw==</P><Q>xHZTH4hXAv7uJsb/VHrcYOM5l4AyC+OxP7bhmAoGJGf4TpPxh+B0RhMxssrkc1d/72TIfRpuPbSLEqkqCSk5wQ==</Q><DP>SKFzK1CSTB4UCv/crr76Y3zMK4hlBryCDXQ9D7ta8frGeQr6puLMh9LZ8vnvJaOybUdwvFKu8pmkZDF7zrFGkw==</DP><DQ>J3ZNBAxyzds/IvLd3q4/DgcWTmQlqVW3CMFHVy7MRQvNSJtW7KAdOuYoGW2/rZtpy0BHNTnV4vcc6EaqduSdAQ==</DQ><InverseQ>4/jjapjJHdDqr5FG5a29ISgO6mRnjty6nrOisPNDi4336JdEKfAdtZvDUQoBAwKsV0oMvJ9RtPB2tS0hf5i8pA==</InverseQ><D>qcnyY/b5kbNxjasYvIQ5i3jTY2BLJ/YA9FcvXtiNw/DdGPMUiwGhrJnxEdD4yvyuBGm1CAmbV3d7icfjUBdYIe9VaZqPQ2FgYzI5DbB401+4z6Di7uKBVajLIOawlnufW4+K68T0EAFO2l9eo1RcU66W921G/pz6hObeUXt65QE=</D></RSAKeyValue>";
-        private const string PubblicKey = "<RSAKeyValue><Modulus>sr4l8EwMgPqPhRTK+dPTwGs9uYhDeUohSRL48ZDf85/5/Lo469WltKFaQvA2Msy92xq14YPPN6p6mQD7stVbinRd+hihnYoqfclYRMe+FG6jqu/QACl0N6JgwM7iKGiyzBjL1vkvcSoaqwbxD8QPHgrdNlkyP0z6Vz7j79PFEos=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
-        #endregion
 
         #region Fields
         private Guid _guid;
@@ -26,7 +17,7 @@ namespace Notes.Models
         private string _login;
         private string _email;
         private string _password;
-        private DateTime _lastLoginDateTime;
+        private DateTime _lastLoginDate;
         private List<Note> _notes;
         #endregion
         #region Properties 
@@ -85,15 +76,15 @@ namespace Notes.Models
                 _email = value;
             }
         }
-        public DateTime LastLoginDatetime
+        public DateTime LastLoginDate
         {
             get
             {
-                return _lastLoginDateTime;
+                return _lastLoginDate;
             }
             set
             {
-                _lastLoginDateTime = value;
+                _lastLoginDate = value;
             }
         }
         public string Password
@@ -109,16 +100,16 @@ namespace Notes.Models
         #endregion
         #region Constructor
 
-        public User (string Login, string FirstName, string LastName, string Email, string password) : this()
+        public User(string Login, string FirstName, string LastName, string Email, string password) : this()
         {
             _guid = Guid.NewGuid();
             _firstName = FirstName;
             _lastName = LastName;
             _login = Login;
-            _lastLoginDateTime = DateTime.Now;
+            _email = Email;
+            _lastLoginDate = DateTime.Now;
+
             SetPassword(password);
-
-
         }
 
         private User()
@@ -136,7 +127,6 @@ namespace Notes.Models
         {
             try
             {
-                //string res = Encrypting.DecryptString(_password, PrivateKey);
                 string res2 = Encrypting.GetMd5HashForString(password);
                 return _password == res2;
             }
@@ -149,8 +139,6 @@ namespace Notes.Models
         {
             try
             {
-                //string res = Encrypting.DecryptString(_password, PrivateKey);
-                //string res2 = Encrypting.DecryptString(userCandidate._password, PrivateKey);
                 return _password == userCandidate._password;
             }
             catch (Exception)
@@ -164,6 +152,43 @@ namespace Notes.Models
             return $"{FirstName} {LastName}";
         }
 
+        #region EntityConfiguration
+        public class UserEntityConfiguration : EntityTypeConfiguration<User>
+        {
+            public UserEntityConfiguration()
+            {
+                ToTable("Users");
+                HasKey(s => s.Guid);
+
+                Property(p => p.Guid)
+                    .HasColumnName("Guid")
+                    .IsRequired();
+                Property(p => p.FirstName)
+                    .HasColumnName("FirstName")
+                    .IsRequired();
+                Property(p => p.LastName)
+                    .HasColumnName("LastName")
+                    .IsRequired();
+                Property(p => p.Login)
+                    .HasColumnName("Login")
+                    .IsRequired();
+                Property(p => p.Email)
+                    .HasColumnName("Email")
+                    .IsOptional();
+                Property(p => p.Password)
+                    .HasColumnName("Password")
+                    .IsRequired();
+                Property(p => p.LastLoginDate)
+                    .HasColumnName("LastLoginDate")
+                    .IsRequired();
+
+                HasMany(s => s.Notes)
+                    .WithRequired(w => w.User)
+                    .HasForeignKey(w => w.UserGuid)
+                    .WillCascadeOnDelete(true);
+            }
+        }
+        #endregion
 
     }
 }
