@@ -1,23 +1,21 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using Notes.Managers;
-using Notes.Properties;
 using Notes.Tools;
 
 namespace Notes.ViewModels
 {
-    public class MainWindowViewModel : ILoaderOwner
+    internal class LoaderViewModel : ILoaderOwner
     {
-        private Visibility _visibility = Visibility.Hidden;
+        private Visibility _loaderVisibility = Visibility.Collapsed;
         private bool _isEnabled = true;
 
         public Visibility LoaderVisibility
         {
-            get { return _visibility; }
+            get { return _loaderVisibility; }
             set
             {
-                _visibility = value;
+                _loaderVisibility = value;
                 OnPropertyChanged();
             }
         }
@@ -32,20 +30,9 @@ namespace Notes.ViewModels
             }
         }
 
-        public MainWindowViewModel()
-        {
-            LoaderManager.Initialize(this);
-        }
-
-        internal void StartApplication()
-        {
-            NavigationManager.Instance.Navigate(StationManager.CurrentUser != null ? ModesEnum.Main : ModesEnum.SignIn);
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

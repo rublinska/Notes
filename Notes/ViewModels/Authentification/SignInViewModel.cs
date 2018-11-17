@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -91,9 +91,10 @@ namespace Notes.ViewModels.Authentication
 
         private async void SignInExecute(object obj)
         {
-            LoaderManager.Instance.ShowLoader();
+            LoaderManager.ShowLoader();
             var result = await Task.Run(() =>
             {
+                Thread.Sleep(3000);
                 User currentUser;
                 try
                 {
@@ -129,7 +130,7 @@ namespace Notes.ViewModels.Authentication
 
                 return true;
             });
-            LoaderManager.Instance.HideLoader();
+            LoaderManager.HideLoader();
             if (result)
                 NavigationManager.Instance.Navigate(ModesEnum.Main);
         }

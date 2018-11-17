@@ -1,42 +1,37 @@
 ﻿using System.Windows;
 using Notes.Tools;
+using Notes.ViewModels;
 
 namespace Notes.Managers
 {
     internal class LoaderManager
     {
         #region static
-        private static readonly object Lock = new object();
-        private static LoaderManager _instance;
+        private static ILoaderOwner _loaderOwner;
+        #endregion 
 
-        internal static LoaderManager Instance
+        private static ILoaderOwner ViewModel
         {
             get
             {
-                if (_instance != null)
-                    return _instance;
-                lock (Lock)
-                {
-                    return _instance = new LoaderManager();
-                }
+                return _loaderOwner ?? (_loaderOwner = new LoaderViewModel());
             }
+            set { _loaderOwner = value; }
         }
-        #endregion
-        private ILoaderOwner _loaderOwner;
 
-        internal void Initialize(ILoaderOwner loaderOwner)
+        internal static void Initialize(ILoaderOwner owner)
         {
-            _loaderOwner = loaderOwner;
+            ViewModel = owner;
         }
 
-        internal void ShowLoader()
+        internal static void ShowLoader()
         {
             _loaderOwner.LoaderVisibility = Visibility.Visible;
             _loaderOwner.IsEnabled = false;
 
         }
 
-        internal void HideLoader()
+        internal static void HideLoader()
         {
             _loaderOwner.LoaderVisibility = Visibility.Hidden;
             _loaderOwner.IsEnabled = true;

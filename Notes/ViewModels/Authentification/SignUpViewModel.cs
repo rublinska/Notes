@@ -114,7 +114,7 @@ namespace Notes.ViewModels.Authentication
 
         private async void SignUpExecute(object obj)
         {
-            LoaderManager.Instance.ShowLoader();
+            LoaderManager.ShowLoader();
             var result = await Task.Run(() =>
             {
                 try
@@ -152,7 +152,7 @@ namespace Notes.ViewModels.Authentication
                 MessageBox.Show(String.Format(Resources.SignUp_UserSuccessfulyCreated, _login));
                 return true;
             });
-            LoaderManager.Instance.HideLoader();
+            LoaderManager.HideLoader();
             if (result)
                 NavigationManager.Instance.Navigate(ModesEnum.Main);
         }
