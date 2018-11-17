@@ -1,4 +1,6 @@
 using System;
+using Notes.Managers;
+using Notes.ViewModels.Authentication;
 using Notes.Views;
 using Notes.Views.Authentication;
 using SignUpView = Notes.Views.Authentication.SignUpView;
@@ -30,6 +32,15 @@ namespace Notes.Tools
             {
                 case ModesEnum.SignIn:
                     _contentWindow.ContentControl.Content = _signInView ?? (_signInView = new SignInView());
+                    SignInViewModel signInViewModel = _signInView.DataContext as SignInViewModel;
+                    if (signInViewModel != null)
+                    {
+                        if (StationManager.CurrentUser != null)
+                        {
+                            signInViewModel.Login = StationManager.CurrentUser.Login;
+                        }
+                        signInViewModel.Password = string.Empty;
+                    }
                     break;
                 case ModesEnum.SingUp:
                     _contentWindow.ContentControl.Content = _signUpView ?? (_signUpView = new SignUpView());
