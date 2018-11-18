@@ -76,11 +76,6 @@ namespace Notes.ViewModels.Authentication
         #region ConstructorAndInit
         internal SignInViewModel()
         {
-            /*
-            User user = (User)SerializationManager.Deserialize<User>(FileFolderHelper.LastUserFilePath);
-            _login = user.Login;
-            _password = user.Password;
-            */
         }
         #endregion
 
@@ -94,7 +89,7 @@ namespace Notes.ViewModels.Authentication
             LoaderManager.ShowLoader();
             var result = await Task.Run(() =>
             {
-                Thread.Sleep(3000);
+                Thread.Sleep(2000);
                 User currentUser;
                 try
                 {
@@ -125,7 +120,7 @@ namespace Notes.ViewModels.Authentication
                         ex.Message));
                     return false;
                 }
-                StationManager.CurrentUser = currentUser;
+                StationManager.AddCurrentUserToCache(currentUser);
                 return true;
             });
             LoaderManager.HideLoader();

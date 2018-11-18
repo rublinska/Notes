@@ -13,10 +13,10 @@ namespace Notes.Managers
 
         static StationManager()
         {
-            DeserializeLastUser();
+            GetLastUserFromCache();
         }
 
-        private static void DeserializeLastUser()
+        private static void GetLastUserFromCache()
         {
             User userCandidate;
             try
@@ -40,6 +40,20 @@ namespace Notes.Managers
                 CurrentUser = userCandidate;
         }
 
+        internal static void AddCurrentUserToCache(User currentUser)
+        {
+            CurrentUser = currentUser;
+            SerializationManager.Serialize<User>(CurrentUser, FileFolderHelper.LastUserFilePath);
+            Logger.Log($"\t{StationManager.CurrentUser.ToString()} successfuly cached on this PC");
+        }
+        internal static void DeleteCurrentUserToCache()
+        {
+            FileFolderHelper.CheckAndDeleteFile(FileFolderHelper.LastUserFilePath);
+            FileFolderHelper.CheckAndDeleteFile(FileFolderHelper.StorageFilePath);
+            Logger.Log($"\t{StationManager.CurrentUser.ToString()} successfuly deleted from cach on this PC");
+            CurrentUser = null;
+            
+        }
 
         internal static void CloseApp()
         {

@@ -6,6 +6,7 @@ using Notes.Tools;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Notes.ViewModels
@@ -18,7 +19,6 @@ namespace Notes.ViewModels
         #region Commands
         private ICommand _logOutCommand;
         private ICommand _addNoteCommand;
-        private ICommand _editNoteCommand;
         private ICommand _deleteNoteCommand;
         #endregion
         #endregion
@@ -42,13 +42,6 @@ namespace Notes.ViewModels
             }
         }
         
-        public ICommand EditNoteCommand
-        {
-            get
-            {
-                return _editNoteCommand ?? (_editNoteCommand = new RelayCommand<KeyEventArgs>(EditNoteExecute));
-            }
-        }
         
         public ICommand DeleteNoteCommand
         {
@@ -111,9 +104,6 @@ namespace Notes.ViewModels
             OnPropertyChanged(nameof(SelectedNote));
             OnPropertyChanged(nameof(Notes));
         }
-        private void EditNoteExecute(KeyEventArgs args)
-        {
-        }
 
         private void AddNoteExecute(object o)
         {
@@ -125,10 +115,9 @@ namespace Notes.ViewModels
         }
         private void LogOutExecute(object o)
         {
-
-            Logger.Log($"\t{StationManager.CurrentUser.ToString()} succsesfuly sign out and navigated to sign in window");
+            StationManager.DeleteCurrentUserToCache();
+            _notes = null;
             NavigationManager.Instance.Navigate(ModesEnum.SignIn);
-            StationManager.CurrentUser = null;
         }
 
         #region EventsAndHandlers

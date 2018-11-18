@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Input;
 using Notes.Managers;
 using Notes.Models;
 using Notes.Properties;
+using Notes.Tools;
 
 namespace Notes.ViewModels
 {
@@ -11,6 +14,19 @@ namespace Notes.ViewModels
     {
         #region Fields
         private readonly NoteUIModel _currentNote;
+        #endregion
+        #region Commands
+        private ICommand _editNoteCommand;
+        #endregion
+
+        #region Commands
+        public ICommand EditNoteCommand
+        {
+            get
+            {
+                return _editNoteCommand ?? (_editNoteCommand = new RelayCommand<KeyEventArgs>(EditNoteExecute));
+            }
+        }
         #endregion
 
         #region Properties
@@ -34,6 +50,12 @@ namespace Notes.ViewModels
             }
         }
         #endregion
+
+        private void EditNoteExecute(KeyEventArgs args)
+        {
+            DBManager.SaveNote(_currentNote.Note);
+            MessageBox.Show("Note saved");
+        }
 
         #region Constructor
         public NoteConfigViewModel(NoteUIModel note)

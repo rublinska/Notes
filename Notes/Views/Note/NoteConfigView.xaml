@@ -4,27 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:Notes.Tools.Controls"
+
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="100">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="78"></RowDefinition>
-
-            <RowDefinition Height="69"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
         </Grid.ColumnDefinitions>
-        <controls:LabelAndTextControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Caption="Title" Margin="5,5,39,5"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="70*"/>
+        </Grid.RowDefinitions>
+        <controls:LabelAndTextControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Caption="Title" Margin="10,5,30,5"
                                 Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-        <controls:LabelAndTextControl Grid.Row="2" Grid.Column="0" Caption="Note" Margin="5,5,10,17"
-                                Text="{Binding NoteText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
+        <controls:LabelAndTextControl Grid.Row="1" Grid.Column="0" Caption="Note" Margin="10,5,30,5"
+                                Text="{Binding NoteText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  Grid.ColumnSpan="3"  Grid.RowSpan="2"/>
+        <Button Content="Save Note to DB" Command="{Binding EditNoteCommand}" Grid.Row="2" Grid.Column="0" 
+                VerticalAlignment="Top" HorizontalAlignment="Right"  Margin="10,5,30,5" Grid.ColumnSpan="3" />
 
     </Grid>
 </UserControl>

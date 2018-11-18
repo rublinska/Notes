@@ -35,10 +35,14 @@ namespace Notes.Managers
         {
             EntityWrapper.DeleteNote(selectedNote);
         }
-
-        public static void AddNote(Note Note)
+        public static void SaveNote(Note selectedNote)
         {
-            EntityWrapper.AddNote(Note);
+            EntityWrapper.SaveNote(selectedNote);
+        }
+
+        public static void AddNote(Note note)
+        {
+            EntityWrapper.AddNote(note);
         }
     }
 }
