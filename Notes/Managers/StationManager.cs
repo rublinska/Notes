@@ -44,15 +44,14 @@ namespace Notes.Managers
         {
             CurrentUser = currentUser;
             SerializationManager.Serialize<User>(CurrentUser, FileFolderHelper.LastUserFilePath);
-            Logger.Log($"\t{StationManager.CurrentUser.ToString()} successfuly cached on this PC");
+            Logger.Log($"\t{CurrentUser.ToString()} successfuly cached on this PC");
         }
-        internal static void DeleteCurrentUserToCache()
+        internal static void DeleteCurrentUserFromCache()
         {
             FileFolderHelper.CheckAndDeleteFile(FileFolderHelper.LastUserFilePath);
             FileFolderHelper.CheckAndDeleteFile(FileFolderHelper.StorageFilePath);
-            Logger.Log($"\t{StationManager.CurrentUser.ToString()} successfuly deleted from cach on this PC");
+            Logger.Log($"\t{CurrentUser.ToString()} successfuly deleted from cach on this PC");
             CurrentUser = null;
-            
         }
 
         internal static void CloseApp()

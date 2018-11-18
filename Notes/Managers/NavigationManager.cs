@@ -2,9 +2,6 @@
 
 namespace Notes.Managers
 {
-    /// <summary>
-    /// Singleton manager used to help with navigation betwean controls
-    /// </summary>
     internal class NavigationManager
     {
         #region static
@@ -37,25 +34,13 @@ namespace Notes.Managers
             }
         }
         #endregion
-        /// <summary>
-        /// Current NavigationModel field
-        /// </summary>
         private NavigationModel _navigationModel;
-        /// <summary>
-        /// This methos is used to switch to another navigation model
-        /// </summary>
-        /// <param name="navigationModel">New NavigationModel</param>
         internal void Initialize(NavigationModel navigationModel)
         {
             _navigationModel = navigationModel;
         }
-        /// <summary>
-        /// This method performs switch betwean different controls
-        /// </summary>
-        /// <param name="mode">Enum value of corresponding control</param>
         internal void Navigate(ModesEnum mode)
         {
-            //If _navigationModel is null, nothing will happen
             _navigationModel?.Navigate(mode);
         }
 
