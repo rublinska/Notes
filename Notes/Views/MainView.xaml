@@ -12,12 +12,14 @@
             <ColumnDefinition Width="70*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="80*"/>
-            <RowDefinition Height="6*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="76*"/>
+            <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
-        <Button Content="Add Note" Command="{Binding AddNoteCommand}" Grid.Row="0"/>
-        <ListBox Grid.Row="1"  ItemsSource="{Binding Notes}" SelectedItem="{Binding SelectedNote}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="Auto" Margin="2">
+        <Button Content="Add Note" Command="{Binding AddNoteCommand}" Grid.Row="1"/>
+        <Button Content="Delete Note" Command="{Binding DeleteNoteCommand}" Grid.Row="0"/>
+        <ListBox Grid.Row="2"  ItemsSource="{Binding Notes}" SelectedItem="{Binding SelectedNote}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="Auto" Margin="2">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5">
@@ -26,7 +28,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Grid.Row="2" Content="Log Out" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding LogOutCommand}" Margin="0,0,0,-39"/>
+        <Button Content="Log Out" Command="{Binding LogOutCommand}" Grid.Row="3" />
 
     </Grid>
 </UserControl>

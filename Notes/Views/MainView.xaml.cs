@@ -34,9 +34,9 @@ namespace Notes.Views
             {
                 _currentNoteConfigView = new NoteConfigView(note);
                 MainGrid.Children.Add(_currentNoteConfigView);
-                Grid.SetRow(_currentNoteConfigView, 0);
-                Grid.SetRowSpan(_currentNoteConfigView, 2);
-                Grid.SetColumn(_currentNoteConfigView, 1);
+                Grid.SetRow(_currentNoteConfigView, 2);
+                Grid.SetRowSpan(_currentNoteConfigView, 3);
+                Grid.SetColumn(_currentNoteConfigView, 3);
             }
             else
                 _currentNoteConfigView.DataContext = new NoteConfigViewModel(note);

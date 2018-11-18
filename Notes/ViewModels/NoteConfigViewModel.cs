@@ -14,9 +14,9 @@ namespace Notes.ViewModels
     {
         #region Fields
         private readonly NoteUIModel _currentNote;
-        #endregion
         #region Commands
         private ICommand _editNoteCommand;
+        #endregion
         #endregion
 
         #region Commands

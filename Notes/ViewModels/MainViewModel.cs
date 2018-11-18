@@ -95,7 +95,7 @@ namespace Notes.ViewModels
 
         private void DeleteNoteExecute(KeyEventArgs args)
         {
-            if (args.Key != Key.Delete) return;
+        //    if (args.Key != Key.Delete) return;
 
             if (SelectedNote == null) return;
             StationManager.CurrentUser.Notes.RemoveAll(uwr => uwr.Guid == SelectedNote.Guid);
@@ -111,7 +111,7 @@ namespace Notes.ViewModels
             DBManager.AddNote(note);
             var noteUIModel = new NoteUIModel(note);
             _notes.Add(noteUIModel);
-            _selectedNote = noteUIModel;
+            SelectedNote = noteUIModel;
         }
         private void LogOutExecute(object o)
         {
