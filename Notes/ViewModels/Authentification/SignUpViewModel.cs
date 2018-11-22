@@ -119,7 +119,6 @@ namespace Notes.ViewModels.Authentication
             {
                 try
                 {
-                    Thread.Sleep(3000);
                     if (!new EmailAddressAttribute().IsValid(_email))
                     {
                         MessageBox.Show(String.Format(Resources.SignUp_EmailIsNotValid, _email));

@@ -115,7 +115,7 @@ namespace Notes.ViewModels
         }
         private void LogOutExecute(object o)
         {
-            StationManager.DeleteCurrentUserToCache();
+            StationManager.DeleteCurrentUserFromCache();
             _notes = null;
             NavigationManager.Instance.Navigate(ModesEnum.SignIn);
         }

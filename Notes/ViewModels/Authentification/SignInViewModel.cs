@@ -89,7 +89,6 @@ namespace Notes.ViewModels.Authentication
             LoaderManager.ShowLoader();
             var result = await Task.Run(() =>
             {
-                Thread.Sleep(2000);
                 User currentUser;
                 try
                 {
