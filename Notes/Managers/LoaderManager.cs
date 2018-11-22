@@ -8,20 +8,27 @@ namespace Notes.Managers
     {
         #region static
         private static ILoaderOwner _loaderOwner;
-        #endregion 
+        #endregion
 
-        private static ILoaderOwner ViewModel
+        private static readonly object Lock = new object();
+        private static LoaderManager _instance;
+
+        internal static LoaderManager Instance
         {
             get
             {
-                return _loaderOwner ?? (_loaderOwner = new LoaderViewModel());
+                if (_instance != null)
+                    return _instance;
+                lock (Lock)
+                {
+                    return _instance = new LoaderManager();
+                }
             }
-            set { _loaderOwner = value; }
         }
 
         internal static void Initialize(ILoaderOwner owner)
         {
-            ViewModel = owner;
+            _loaderOwner = owner;
         }
 
         internal static void ShowLoader()

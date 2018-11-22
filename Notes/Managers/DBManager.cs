@@ -1,6 +1,7 @@
 ﻿
 using Notes.DBModels;
 using Notes.DBAdapter;
+using Notes.Tools;
 
 namespace Notes.Managers
 {
@@ -17,7 +18,7 @@ namespace Notes.Managers
             return EntityWrapper.GetUserByLogin(login);
         }
 
-        internal static void AddUser(User user)
+        internal  static void AddUser(User user)
         {
             EntityWrapper.AddUser(user);
         }
@@ -34,15 +35,19 @@ namespace Notes.Managers
         public static void DeleteNote(Note selectedNote)
         {
             EntityWrapper.DeleteNote(selectedNote);
+            Logger.Log("Note '"+$"\t{selectedNote.ToString()}"+"' deleted.");
         }
+
         public static void SaveNote(Note selectedNote)
         {
             EntityWrapper.SaveNote(selectedNote);
+            Logger.Log("Note '"+ $"\t{selectedNote.ToString()}"+"' saved after editing.");
         }
 
         public static void AddNote(Note note)
         {
             EntityWrapper.AddNote(note);
+            Logger.Log("New note added.");
         }
     }
 }

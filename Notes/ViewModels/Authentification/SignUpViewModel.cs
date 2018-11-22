@@ -132,8 +132,7 @@ namespace Notes.ViewModels.Authentication
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(String.Format(Resources.SignUp_FailedToValidateData, Environment.NewLine,
-                        ex.Message));
+                    MessageBox.Show(String.Format(Resources.SignUp_FailedToValidateData, Environment.NewLine,ex.Message));
                     return false;
                 }
                 try

@@ -3,9 +3,11 @@ using Notes.Managers;
 using Notes.Models;
 using Notes.Properties;
 using Notes.Tools;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -80,7 +82,7 @@ namespace Notes.ViewModels
             if (propertyChangedEventArgs.PropertyName == "SelectedNote")
                 OnNoteChanged(_selectedNote);
         }
-        private void FillNotes()
+        public void FillNotes()
         {
             _notes = new ObservableCollection<NoteUIModel>();
             foreach (var note in StationManager.CurrentUser.Notes)
@@ -93,30 +95,47 @@ namespace Notes.ViewModels
             }
         }
 
-        private void DeleteNoteExecute(KeyEventArgs args)
+        private async void DeleteNoteExecute(KeyEventArgs args)
         {
-        //    if (args.Key != Key.Delete) return;
+            //    if (args.Key != Key.Delete) return;
 
-            if (SelectedNote == null) return;
-            StationManager.CurrentUser.Notes.RemoveAll(uwr => uwr.Guid == SelectedNote.Guid);
-            DBManager.DeleteNote(SelectedNote.Note);
-            FillNotes();
-            OnPropertyChanged(nameof(SelectedNote));
-            OnPropertyChanged(nameof(Notes));
+            LoaderManager.ShowLoader();
+            await Task.Run(() =>
+            {
+                if (SelectedNote == null) return;
+
+                StationManager.CurrentUser.Notes.RemoveAll(uwr => uwr.Guid == SelectedNote.Guid);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    DBManager.DeleteNote(SelectedNote.Note);
+                    FillNotes();
+                    OnPropertyChanged(nameof(SelectedNote));
+                    OnPropertyChanged(nameof(Notes));
+                });
+            });
+            LoaderManager.HideLoader();
         }
 
-        private void AddNoteExecute(object o)
+        private async void AddNoteExecute(object o)
         {
-            Note note = new Note("New Note", "", StationManager.CurrentUser);
-            DBManager.AddNote(note);
-            var noteUIModel = new NoteUIModel(note);
-            _notes.Add(noteUIModel);
-            SelectedNote = noteUIModel;
+            LoaderManager.ShowLoader();
+            await Task.Run(() =>
+            {
+                Note note = new Note("New Note", "", StationManager.CurrentUser);
+                DBManager.AddNote(note);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    var noteUIModel = new NoteUIModel(note);
+                    _notes.Add(noteUIModel);
+                    FillNotes();
+                    SelectedNote = noteUIModel;
+                });
+            });
+            LoaderManager.HideLoader();
         }
         private void LogOutExecute(object o)
         {
             StationManager.DeleteCurrentUserFromCache();
-            _notes = null;
             NavigationManager.Instance.Navigate(ModesEnum.SignIn);
         }
 

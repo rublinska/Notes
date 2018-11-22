@@ -46,6 +46,7 @@ namespace Notes.Managers
             SerializationManager.Serialize<User>(CurrentUser, FileFolderHelper.LastUserFilePath);
             Logger.Log($"\t{CurrentUser.ToString()} successfuly cached on this PC");
         }
+
         internal static void DeleteCurrentUserFromCache()
         {
             FileFolderHelper.CheckAndDeleteFile(FileFolderHelper.LastUserFilePath);

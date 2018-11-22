@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Notes.Managers;
@@ -51,10 +52,16 @@ namespace Notes.ViewModels
         }
         #endregion
 
-        private void EditNoteExecute(KeyEventArgs args)
+        private async void EditNoteExecute(KeyEventArgs args)
         {
-            DBManager.SaveNote(_currentNote.Note);
-            MessageBox.Show("Note saved");
+            LoaderManager.ShowLoader();
+            await Task.Run(() =>
+            {
+                DBManager.SaveNote(_currentNote.Note);
+                OnPropertyChanged(nameof(Notes));
+            });
+            LoaderManager.HideLoader();
+        //    MessageBox.Show("Note saved");
         }
 
         #region Constructor

@@ -1,5 +1,6 @@
 using System;
 using Notes.Managers;
+using Notes.ViewModels;
 using Notes.ViewModels.Authentication;
 using Notes.Views;
 using Notes.Views.Authentication;
