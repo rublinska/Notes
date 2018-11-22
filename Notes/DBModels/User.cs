@@ -1,23 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using Notes.Tools;
+using System.Runtime.Serialization;
 using System.Data.Entity.ModelConfiguration;
 
 namespace Notes.DBModels
 {
 
     [Serializable]
+    [DataContract(IsReference = true)]
+
     public class User
     {
 
         #region Fields
+        [DataMember]
         private Guid _guid;
+        [DataMember]
         private string _firstName;
+        [DataMember]
         private string _lastName;
+        [DataMember]
         private string _login;
+        [DataMember]
         private string _email;
+        [DataMember]
         private string _password;
+        [DataMember]
         private DateTime _lastLoginDate;
+        [DataMember]
         private List<Note> _notes;
         #endregion
         #region Properties 

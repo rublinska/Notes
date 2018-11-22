@@ -1,17 +1,25 @@
-﻿using System;
+﻿using System.Runtime.Serialization;
+using System;
 using System.Data.Entity.ModelConfiguration;
 
 namespace Notes.DBModels
 {
     
     [Serializable]
+    [DataContract(IsReference = true)]
+
     public class Note
     {
         #region Fields
+        [DataMember]
         private Guid _guid;
+        [DataMember]
         private string _title;
+        [DataMember]
         private string _text;
+        [DataMember]
         private Guid _userGuid;
+        [DataMember]
         private User _user;
         #endregion
 
