@@ -6,13 +6,14 @@ namespace Notes.DBAdapter
 {
     internal class NoteDBContext : DbContext
     {
+        public DbSet<User> Users { get; set; }
+        public DbSet<Note> Notes { get; set; }
+
         public NoteDBContext() : base("NewNoteDB")
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<NoteDBContext, Configuration>(true));
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Note> Notes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

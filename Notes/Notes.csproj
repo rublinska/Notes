@@ -89,6 +89,10 @@
     <Compile Include="Managers\StationManager.cs" />
     <Compile Include="DBModels\Note.cs" />
     <Compile Include="DBModels\User.cs" />
+    <Compile Include="Migrations\201811222011299_NoteDB.cs" />
+    <Compile Include="Migrations\201811222011299_NoteDB.Designer.cs">
+      <DependentUpon>201811222011299_NoteDB.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NoteUIModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -162,6 +166,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201811222011299_NoteDB.resx">
+      <DependentUpon>201811222011299_NoteDB.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
