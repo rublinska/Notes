@@ -7,11 +7,11 @@ namespace Notes.NoteService
 {
     public class NoteWindowsService : ServiceBase
     {
-        internal const string CurrentServiceName = "NoteSimulatorService1";
-        internal const string CurrentServiceDisplayName = "Note Simulator Service1";
-        internal const string CurrentServiceSource = "NoteSimulatorServiceSource1";
-        internal const string CurrentServiceLogName = "NoteSimulatorServiceLogName1";
-        internal const string CurrentServiceDescription = "Note Simulator for learning purposes1.";
+        internal const string CurrentServiceName = "NoteService1";
+        internal const string CurrentServiceDisplayName = "Note Service1";
+        internal const string CurrentServiceSource = "NoteServiceSource1";
+        internal const string CurrentServiceLogName = "NoteServiceLogName1";
+        internal const string CurrentServiceDescription = "Notes1";
         private ServiceHost _serviceHost = null;
 
         public NoteWindowsService()
