@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using Notes.Tools;
-using Notes.ViewModels;
 
 namespace Notes.Managers
 {

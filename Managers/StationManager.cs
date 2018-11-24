@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Windows;
+using System.Windows.Forms;
 using Notes.DBModels;
 using Notes.Tools;
 

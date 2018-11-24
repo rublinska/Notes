@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Notes.Tools
 {
-    internal static class FileFolderHelper
+    public static class FileFolderHelper
     {
         private static readonly string AppDataPath =
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -23,7 +23,7 @@ namespace Notes.Tools
         internal static readonly string LastUserFilePath =
             Path.Combine(ClientFolderPath, "LastUser.walsim");
 
-        internal static void CheckAndCreateFile(string filePath)
+        public static void CheckAndCreateFile(string filePath)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace Notes.Tools
             return file.Exists;
         }
 
-        internal static void CheckAndDeleteFile(string path)
+        public static void CheckAndDeleteFile(string path)
         {
             try
             {

@@ -90,39 +90,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DBAdapter\EntityWrapper.cs" />
-    <Compile Include="DBAdapter\NoteDBContext.cs" />
-    <Compile Include="Managers\DBManager.cs" />
     <Compile Include="Managers\LoaderManager.cs" />
     <Compile Include="Managers\NavigationManager.cs" />
-    <Compile Include="Managers\SerializationManager.cs" />
-    <Compile Include="Managers\StationManager.cs" />
-    <Compile Include="DBModels\Note.cs" />
-    <Compile Include="DBModels\User.cs" />
-    <Compile Include="Migrations\201811222011299_NoteDB.cs" />
-    <Compile Include="Migrations\201811222011299_NoteDB.Designer.cs">
-      <DependentUpon>201811222011299_NoteDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NoteUIModel.cs" />
-    <Compile Include="NoteService\NoteService.cs" />
-    <Compile Include="NoteService\NoteWindowService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="NoteService\Program.cs" />
-    <Compile Include="NoteService\ProjectInstaller.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="ServiceInterface\INoteContract.cs" />
-    <Compile Include="ServiceInterface\NoteServiceWrapper.cs" />
     <Compile Include="Tools\Controls\LabelAndPasswordControl.xaml.cs" />
     <Compile Include="Tools\Controls\LabelAndTextControl.xaml.cs" />
-    <Compile Include="Tools\Encrypting.cs" />
-    <Compile Include="Tools\FileFolderHelper.cs" />
     <Compile Include="Tools\IContentVindow.cs" />
     <Compile Include="Tools\ILoaderOwner.cs" />
-    <Compile Include="Tools\Logger.cs" />
     <Compile Include="Tools\NavigationModel.cs" />
     <Compile Include="Tools\PasswordBoxAssistant.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
@@ -186,9 +161,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201811222011299_NoteDB.resx">
-      <DependentUpon>201811222011299_NoteDB.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -213,6 +185,16 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DBModels\DBModels.csproj">
+      <Project>{0340e5ca-b252-4e80-a9be-9f809bd2b319}</Project>
+      <Name>DBModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools\Tools.csproj">
+      <Project>{eb687615-2f70-45d0-8837-4085f4bad75c}</Project>
+      <Name>Tools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
