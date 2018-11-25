@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ServiceModel;
 using Notes.DBModels;
 
-namespace Notes.ServiceInterface
+namespace WCF.Notes.ServiceInterface
 {
     [ServiceContract]
     public interface INoteContract

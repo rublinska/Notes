@@ -9,14 +9,14 @@ namespace Notes.Managers
     public static class StationManager
     {
 
-        internal static User CurrentUser { get; set; }
+        public static User CurrentUser { get; set; }
 
         static StationManager()
         {
             GetLastUserFromCache();
         }
 
-        private static void GetLastUserFromCache()
+        public static void GetLastUserFromCache()
         {
             User userCandidate;
             try
@@ -40,14 +40,14 @@ namespace Notes.Managers
                 CurrentUser = userCandidate;
         }
 
-        internal static void AddCurrentUserToCache(User currentUser)
+        public static void AddCurrentUserToCache(User currentUser)
         {
             CurrentUser = currentUser;
             SerializationManager.Serialize<User>(CurrentUser, FileFolderHelper.LastUserFilePath);
             Logger.Log($"\t{CurrentUser.ToString()} successfuly cached on this PC");
         }
 
-        internal static void DeleteCurrentUserFromCache()
+        public static void DeleteCurrentUserFromCache()
         {
             FileFolderHelper.CheckAndDeleteFile(FileFolderHelper.LastUserFilePath);
             FileFolderHelper.CheckAndDeleteFile(FileFolderHelper.StorageFilePath);
@@ -55,7 +55,7 @@ namespace Notes.Managers
             CurrentUser = null;
         }
 
-        internal static void CloseApp()
+        public static void CloseApp()
         {
             MessageBox.Show("ShutDown");
             Environment.Exit(1);

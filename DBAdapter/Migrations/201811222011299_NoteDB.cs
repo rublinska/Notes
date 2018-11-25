@@ -1,4 +1,4 @@
-namespace Notes.Migrations
+namespace Notes.DBAdapter.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

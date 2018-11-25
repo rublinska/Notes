@@ -1,30 +1,30 @@
 ﻿
 using Notes.DBModels;
-using Notes.ServiceInterface;
+using WCF.Notes.ServiceInterface;
 using Notes.Tools;
 
 namespace Notes.Managers
 {
-    internal class DBManager
+    public class DBManager
     {
 
-        internal static bool UserExists(string login)
+        public static bool UserExists(string login)
         {
             return NoteServiceWrapper.UserExists(login);
         }
 
-        internal static User GetUserByLogin(string login)
+        public static User GetUserByLogin(string login)
         {
             return NoteServiceWrapper.GetUserByLogin(login);
         }
 
-        internal static void AddUser(User user)
+        public static void AddUser(User user)
         {
             NoteServiceWrapper.AddUser(user);
         }
 
 
-        internal static User CheckCachedUser(User userCandidate)
+        public static User CheckCachedUser(User userCandidate)
         {
             var userInStorage = NoteServiceWrapper.GetUserByGuid(userCandidate.Guid);
             if (userInStorage != null && userInStorage.CheckPassword(userCandidate))

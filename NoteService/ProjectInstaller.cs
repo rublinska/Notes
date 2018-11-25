@@ -2,7 +2,7 @@
 using System.Configuration.Install;
 using System.ServiceProcess;
 
-namespace Notes.NoteService
+namespace WCF.Notes.NoteService
 {
     [RunInstaller(true)]
     public class ProjectInstaller : Installer

@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using Notes.Migrations;
+using Notes.DBAdapter.Migrations;
 using Notes.DBModels;
 
 namespace Notes.DBAdapter

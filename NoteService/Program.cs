@@ -4,7 +4,7 @@ using System.Reflection;
 using System.ServiceProcess;
 using System.Windows.Forms;
 
-namespace Notes.NoteService
+namespace WCF.Notes.NoteService
 {
     class Program
     {

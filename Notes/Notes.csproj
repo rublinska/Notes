@@ -191,6 +191,10 @@
       <Project>{0340e5ca-b252-4e80-a9be-9f809bd2b319}</Project>
       <Name>DBModels</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Managers\Managers.csproj">
+      <Project>{66b6edeb-6394-4f6b-80c5-967d399aa4dd}</Project>
+      <Name>Managers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tools\Tools.csproj">
       <Project>{eb687615-2f70-45d0-8837-4085f4bad75c}</Project>
       <Name>Tools</Name>

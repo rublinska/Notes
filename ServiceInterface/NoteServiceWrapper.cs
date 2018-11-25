@@ -3,9 +3,9 @@ using System;
 using System.ServiceModel;
 using System.Collections.Generic;
 
-namespace Notes.ServiceInterface
+namespace WCF.Notes.ServiceInterface
 {
-    class NoteServiceWrapper
+    public class NoteServiceWrapper
     {
         public static bool UserExists(string login)
         {

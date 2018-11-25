@@ -1,10 +1,10 @@
 ﻿using Notes.DBAdapter;
 using Notes.DBModels;
-using Notes.ServiceInterface;
+using WCF.Notes.ServiceInterface;
 using System;
 using System.Collections.Generic;
 
-namespace Notes.NoteService
+namespace WCF.Notes.NoteService
 {
     class NoteService : INoteContract
     {

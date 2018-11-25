@@ -17,10 +17,10 @@ namespace Notes.Tools
         internal static readonly string LogFilepath = Path.Combine(LogFolderPath,
             "App_" + DateTime.Now.ToString("YYYY_MM_DD") + ".txt");
 
-        internal static readonly string StorageFilePath =
+        public static readonly string StorageFilePath =
             Path.Combine(ClientFolderPath, "Storage.walsim");
 
-        internal static readonly string LastUserFilePath =
+        public static readonly string LastUserFilePath =
             Path.Combine(ClientFolderPath, "LastUser.walsim");
 
         public static void CheckAndCreateFile(string filePath)

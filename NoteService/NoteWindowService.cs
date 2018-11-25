@@ -3,7 +3,7 @@ using System;
 using System.ServiceModel;
 using System.ServiceProcess;
 
-namespace Notes.NoteService
+namespace WCF.Notes.NoteService
 {
     public class NoteWindowsService : ServiceBase
     {
@@ -32,6 +32,12 @@ namespace Notes.NoteService
         {
             Logger.Log("OnStart");
             RequestAdditionalTime(120 * 1000);
+#if DEBUG
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    Thread.Sleep(1000);
+            //}
+#endif
             try
             {
                 if (_serviceHost != null)
