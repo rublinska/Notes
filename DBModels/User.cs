@@ -9,7 +9,6 @@ namespace Notes.DBModels
 
     [Serializable]
     [DataContract(IsReference = true)]
-
     public class User
     {
 

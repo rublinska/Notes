@@ -47,9 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntityWrapper.cs" />
-    <Compile Include="Migrations\201811222011299_NoteDB.cs" />
-    <Compile Include="Migrations\201811222011299_NoteDB.Designer.cs">
-      <DependentUpon>201811222011299_NoteDB.cs</DependentUpon>
+    <Compile Include="Migrations\201811251148540_InitialMigration.cs" />
+    <Compile Include="Migrations\201811251148540_InitialMigration.Designer.cs">
+      <DependentUpon>201811251148540_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NoteDBContext.cs" />
@@ -59,15 +59,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201811222011299_NoteDB.resx">
-      <DependentUpon>201811222011299_NoteDB.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\DBModels\DBModels.csproj">
       <Project>{0340e5ca-b252-4e80-a9be-9f809bd2b319}</Project>
       <Name>DBModels</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201811251148540_InitialMigration.resx">
+      <DependentUpon>201811251148540_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

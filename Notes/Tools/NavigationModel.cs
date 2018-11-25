@@ -32,7 +32,7 @@ namespace Notes.Tools
             switch (mode)
             {
                 case ModesEnum.SignIn:
-                    _contentWindow.ContentControl.Content = _signInView ?? (_signInView = new SignInView());
+                    _contentWindow.ContentControl.Content = _signInView = new SignInView();
                     SignInViewModel signInViewModel = _signInView.DataContext as SignInViewModel;
                     if (signInViewModel != null)
                     {
@@ -44,10 +44,10 @@ namespace Notes.Tools
                     }
                     break;
                 case ModesEnum.SingUp:
-                    _contentWindow.ContentControl.Content = _signUpView ?? (_signUpView = new SignUpView());
+                    _contentWindow.ContentControl.Content = _signUpView = new SignUpView();
                     break;
                 case ModesEnum.Main:
-                    _contentWindow.ContentControl.Content = _mainView ?? (_mainView = new MainView());
+                    _contentWindow.ContentControl.Content = _mainView = new MainView();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);

@@ -4,7 +4,7 @@ using Notes.DBModels;
 
 namespace Notes.DBAdapter
 {
-    internal class NoteDBContext : DbContext
+    public class NoteDBContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Note> Notes { get; set; }
