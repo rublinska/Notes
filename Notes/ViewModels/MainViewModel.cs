@@ -8,7 +8,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace Notes.ViewModels
@@ -123,13 +122,13 @@ namespace Notes.ViewModels
             {
                 Note note = new Note("New Note", "", StationManager.CurrentUser);
                 DBManager.AddNote(note);
-                App.Current.Dispatcher.Invoke((Action)delegate
-                {
+ //               App.Current.Dispatcher.Invoke((Action)delegate
+ //               {
                     var noteUIModel = new NoteUIModel(note);
                     _notes.Add(noteUIModel);
                     FillNotes();
                     SelectedNote = noteUIModel;
-                });
+ //               });
             });
             LoaderManager.HideLoader();
         }
