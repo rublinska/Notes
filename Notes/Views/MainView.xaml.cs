@@ -25,21 +25,31 @@ namespace Notes.Views
             Visibility = Visibility.Visible;
             _mainWindowViewModel = new MainViewViewModel();
             _mainWindowViewModel.NoteChanged += OnNoteChanged;
+            if(_mainWindowViewModel.SelectedNote != null) OnNoteChanged(_mainWindowViewModel.SelectedNote);
             DataContext = _mainWindowViewModel;
         }
         
         private void OnNoteChanged(NoteUIModel note)
         {
-            if (_currentNoteConfigView == null)
+            if (_currentNoteConfigView == null && note != null)
             {
                 _currentNoteConfigView = new NoteConfigView(note);
+                _currentNoteConfigView.IsEnabled = true;
                 MainGrid.Children.Add(_currentNoteConfigView);
                 Grid.SetRow(_currentNoteConfigView, 2);
                 Grid.SetRowSpan(_currentNoteConfigView, 3);
                 Grid.SetColumn(_currentNoteConfigView, 3);
             }
-            else
+            else if (_currentNoteConfigView != null && note != null)
+            {
                 _currentNoteConfigView.DataContext = new NoteConfigViewModel(note);
+                _currentNoteConfigView.IsEnabled = true;
+            }
+            else
+            {
+                _currentNoteConfigView.DataContext = null;
+                _currentNoteConfigView.IsEnabled = false;
+            }
 
         }
 

@@ -48,7 +48,7 @@ namespace Notes.ViewModels
         {
             get
             {
-                return _deleteNoteCommand ?? (_deleteNoteCommand = new RelayCommand<KeyEventArgs>(DeleteNoteExecute));
+                return _deleteNoteCommand ?? (_deleteNoteCommand = new RelayCommand<object>(DeleteNoteExecute));
             }
         }
         #endregion
@@ -56,6 +56,11 @@ namespace Notes.ViewModels
         public ObservableCollection<NoteUIModel> Notes
         {
             get { return _notes; }
+            set
+            {
+                _notes = value;
+                OnPropertyChanged();
+            }
         }
         public NoteUIModel SelectedNote
         {
@@ -83,21 +88,20 @@ namespace Notes.ViewModels
         }
         public void FillNotes()
         {
-            _notes = new ObservableCollection<NoteUIModel>();
+            var tmpNotes = new ObservableCollection<NoteUIModel>();
             foreach (var note in StationManager.CurrentUser.Notes)
             {
-                _notes.Add(new NoteUIModel(note));
+                tmpNotes.Add(new NoteUIModel(note));
             }
-            if (_notes.Count > 0)
+            Notes = tmpNotes;
+            if (Notes.Count > 0)
             {
                 _selectedNote = Notes[0];
             }
         }
 
-        private async void DeleteNoteExecute(KeyEventArgs args)
+        private async void DeleteNoteExecute(object o)
         {
-            //    if (args.Key != Key.Delete) return;
-
             LoaderManager.ShowLoader();
             await Task.Run(() =>
             {
@@ -108,6 +112,7 @@ namespace Notes.ViewModels
                 {
                     DBManager.DeleteNote(SelectedNote.Note);
                     FillNotes();
+                    if(Notes.Count<1) SelectedNote = null;
                     OnPropertyChanged(nameof(SelectedNote));
                     OnPropertyChanged(nameof(Notes));
                 });
@@ -122,13 +127,13 @@ namespace Notes.ViewModels
             {
                 Note note = new Note("New Note", "", StationManager.CurrentUser);
                 DBManager.AddNote(note);
- //               App.Current.Dispatcher.Invoke((Action)delegate
- //               {
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
                     var noteUIModel = new NoteUIModel(note);
                     _notes.Add(noteUIModel);
                     FillNotes();
                     SelectedNote = noteUIModel;
- //               });
+                });
             });
             LoaderManager.HideLoader();
         }

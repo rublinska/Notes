@@ -103,7 +103,7 @@
     <Compile Include="Tools\RelayCommand.cs" />
     <Compile Include="ViewModels\Authentification\SignInViewModel.cs" />
     <Compile Include="ViewModels\Authentification\SignUpViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MainViewViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\NoteConfigViewModel.cs" />
     <Compile Include="Views\Authentification\SignInView.xaml.cs" />

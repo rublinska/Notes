@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Notes.Managers;
 using Notes.Models;
@@ -33,7 +34,11 @@ namespace Notes.ViewModels
 
         public string Title
         {
-            get { return _currentNote.Title; }
+            get
+            {
+                if(_currentNote != null) return _currentNote.Title;
+                return string.Empty;
+            }
             set
             {
                 _currentNote.Title = value;
@@ -42,7 +47,11 @@ namespace Notes.ViewModels
         }
         public string NoteText
         {
-            get { return _currentNote.NoteText; }
+            get
+            {
+                if(_currentNote != null) return _currentNote.NoteText;
+                return string.Empty;
+            }
             set
             {
                 _currentNote.NoteText = value;
@@ -60,7 +69,7 @@ namespace Notes.ViewModels
                 OnPropertyChanged(nameof(Notes));
             });
             LoaderManager.HideLoader();
-        //    MessageBox.Show("Note saved");
+            MessageBox.Show("Note saved");
         }
 
         #region Constructor
